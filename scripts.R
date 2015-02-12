@@ -1,16 +1,7 @@
 #Data Visualization
 #Justin Joque
-#Spatial and Numeric Data Services
-#Winter 2014 workshop
-
-#These instructions and the workshop data are available from CTools - at 
-#https://ctools.umich.edu . You have already been added to a site in CTools 
-#called Clark 2014 Workshops. It will appear either along the top of your window, or you may 
-#have to use the dropdown on the right side to scroll down to the bottom of 
-#your list of all sites. 
-
-#Once you are in the Clark 2014 Workshops site, select Resources, then click 
-#the “data visualization” folder. Download the files entitled “data.csv" and "scripts.R"
+#Clark Data Labs
+#Winter 2015 workshop
 
 
 
