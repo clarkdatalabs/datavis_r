@@ -10,8 +10,10 @@ http://research.stowers-institute.org/efg/R/Color/Chart/
 R Symbols (also information on bar charts and other types of charts):
 http://www.harding.edu/fmccown/r/
 
-Visualization packages. Both can be installed using the R package installer, but these links include pdf manuals.
+Visualization packages.
 -----------------------------------------------------------------
+Both can be installed using the R package installer, but these links include pdf manuals.
+
 ggplot2:
 http://had.co.nz/ggplot2/
 
