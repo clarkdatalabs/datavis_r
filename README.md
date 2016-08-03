@@ -1,4 +1,4 @@
-# datavis_r
+# Datavis with R
 
 Download R from:
 
