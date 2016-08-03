@@ -1,0 +1,6 @@
+{
+  "name": "Datavis r",
+  "tagline": "A workshop to learn data visualization with R",
+  "body": "# datavis_r\r\n\r\nDownload R from:\r\n\r\nhttp://cran.r-project.org/\r\n\r\nR Colors:\r\nhttp://research.stowers-institute.org/efg/R/Color/Chart/\r\n\r\nR Symbols (also information on bar charts and other types of charts):\r\nhttp://www.harding.edu/fmccown/r/\r\n\r\nVisualization packages.\r\n-----------------------------------------------------------------\r\nBoth can be installed using the R package installer, but these links include pdf manuals.\r\n\r\nggplot2:\r\nhttp://had.co.nz/ggplot2/\r\n\r\nBook about using ggplot2, available electronically via UM Library:\r\nhttp://mirlyn.lib.umich.edu/Record/009662726\r\n\r\nlattice:\r\nhttp://cran.r-project.org/web/packages/lattice/index.html\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
