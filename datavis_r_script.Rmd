@@ -1,0 +1,37 @@
+---
+title: "datavis_r_script"
+author: "M.C.M. Simao"
+date: "12/12/2016" 
+html_document: default
+pdf_document: default
+md_document:
+    variant: markdown_github
+---
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(tidy = TRUE, fig.align='center')
+```
+
+# Data Visualization Strategies in R
+
+## Introduction
+
+### Outline
+* Understanding your Data
+* Organizing/Manipulating Data
+* Choosing Appropriate Visualization(s)
+* Visualizing 'Simple' Data (1-2 variables)
+* Visualizing 'Complex' Data (3+ variables)
+* More Types of Visualizations
+
+## Understanding your Data
+
+## Organizing/Manipulating Data
+
+## Choosing Appropriate Visualization(s)
+
+## Visualizing 'Simple' Data (1-2 variables)
+
+## Visualizing 'Complex' Data (3+ variables)
+
+## More Types of Visualizations
