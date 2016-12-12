@@ -1,22 +1,26 @@
 ---
-title: "datavis_r_script"
-author: "M.C.M. Simao"
+title: "Data Visualization Strategies in R"
+author: "Justin Joque, Nicole Scholtz (Clark Data Labs)"
 date: "12/12/2016" 
-html_document: default
-pdf_document: default
-md_document:
-    variant: markdown_github
+output: 
+  html_document:
+      toc: true # table of content true
+      toc_float: 
+         collapsed: false
+         smooth_scroll: false
+      depth: 3  # upto three depths of headings (specified by #, ## and ###)
+      number_sections: false  ## if you want number sections at each table header
+      theme: united  # many options for theme, this one is my favorite.
+   
 ---
 
 ```{r global_options, include=FALSE}
 knitr::opts_chunk$set(eval=FALSE, tidy = TRUE, fig.align='center')
 ```
 
-# Data Visualization Strategies in R
+# Introduction
 
-## Introduction
-
-### Outline
+## Outline
 * Quick Tips on R
 * Understanding your Data
 * Organizing/Manipulating Data
@@ -26,7 +30,7 @@ knitr::opts_chunk$set(eval=FALSE, tidy = TRUE, fig.align='center')
 * More Types of Visualizations
 * Some Statistics
 
-## Quick Tips on R
+# Quick Tips on R
 **INSERT INFO ON COMMENTS AND ? AND PACKAGES? LINKs LIKE MAPPING_R?**
 ```{r}
 #a few helpful tricks
@@ -41,7 +45,7 @@ identify(x,y,labels=labelfield) #label points interactively
 ```
 
 
-## Understanding your Data
+# Understanding your Data
 ```{r}
 #loading the data
 
@@ -52,7 +56,7 @@ summary(census) #see some summary statistics
 fix(census) #open an excel-esque data editor
 ```
 
-## Organizing/Manipulating Data
+# Organizing/Manipulating Data
 
 ```{r}
 #use this formula in excel or R to map a variable to be between two numbers (i.e. mapping a variable to use for size between 1 and 10):
@@ -73,9 +77,9 @@ lower <- census[census$region=="south",]
 ```
 
 
-### Scaling
+## Scaling
 
-### Normalizing
+## Normalizing
 ```{r}
 #we can plot the log of a variable by simply addiing it to the plot command
 plot(census$hh_income, log(census$population,2))
@@ -84,13 +88,13 @@ plot(census$hh_income, log(census$population,2))
 plot(census$hh_income, census$population/census$area)
 ```
 
-### Aggregating
+## Aggregating
 
 
-## Choosing Appropriate Visualization(s)
+# Choosing Appropriate Visualization(s)
 
-## Visualizing 'Simple' Data (1-2 variables)
-### 1 Variable
+# Visualizing 'Simple' Data (1-2 variables)
+## 1 Variable
 ```{r}
 #histogram
 ############
@@ -104,7 +108,7 @@ boxplot(census[,12],census[,13],col="lightblue",names=c("men","women"),main="Med
 boxplot(hh_income ~ region,data=census, col="lightgreen", main="Median Income by Region\nby County ACS 2006-2010") #this will give us household in come by region
 
 ```
-### 2 Variables
+## 2 Variables
 ```{r}
 #scatter plot
 ##############
@@ -128,7 +132,7 @@ points(central$rent,central$hh_income,pch=20,col="red")
 points(lower$rent,lower$hh_income,pch=20,col="green")
 ```
 
-## Visualizing 'Complex' Data (3+ variables)
+# Visualizing 'Complex' Data (3+ variables)
 
 ```{r}
 #multiple scatterplots can be made by choosing multiple variables (this will plot columns 5 through 11)
@@ -142,9 +146,9 @@ points(census$rent,census$hh_income,pch=20,col="blue")
 ```
 
 
-## More Types of Visualizations
+# More Types of Visualizations
 
-## Some Statistics
+# Some Statistics
 ```{r}
 #sample statistics
 ############
