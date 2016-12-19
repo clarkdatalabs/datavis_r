@@ -20,22 +20,56 @@ knitr::opts_chunk$set(eval=FALSE, tidy = TRUE, fig.align='center')
 
 # Introduction
 
-## Outline
-* Quick Tips on R
-* Understanding your Data
-* Organizing/Manipulating Data
-* Choosing Appropriate Visualization(s)
-* Visualizing 'Simple' Data (1-2 variables)
-* Visualizing 'Complex' Data (3+ variables)
-* More Types of Visualizations
-* Some Statistics
+This tutorial provides some basic instruction on (1) how to visualize data, and (2) how to use R for data visualization. This tutorial covers the topics listed below:
 
-# Quick Tips on R
-**INSERT INFO ON COMMENTS AND ? AND PACKAGES? LINKs LIKE MAPPING_R?**
+### Outline
+1. Install R and Upload Data
+2. Quick Tips on R
+3. Understanding your Data
+4. Organizing/Manipulating Data
+5. Choosing Appropriate Visualization(s)
+6. Visualizing 'Simple' Data (1-2 variables)
+7. Visualizing 'Complex' Data (3+ variables)
+8. More Types of Visualizations
+9. Some Statistics
+
+# 1. Install R and Upload Data
+
+### Install R
+[R](https://www.r-project.org) is an open-source language for graphics and statistical computing, and **must be downloaded** [here](https://cran.r-project.org/mirrors.html) **for this tutorial** by selecting your preferred CRAN mirror. One of the major advantages of using R is that it's free and therefore has a large base of users creating a wide diversity of plug-ins available to all other users in the form of *packages*.
+
+[RStudio](https://www.rstudio.com/) is a helpful and commonly used graphical user interface for R, which can be downloaded [here](https://www.rstudio.com/products/rstudio/download3/) if desired.
+
+### Upload Data
+
+To complete this tutorial, first **download and unzip the folder provided at the top of this tutorial**. Next, run the following line of code which prompts you to select the provided `data.csv` file within the downloaded folder. 
+```{r}
+census <- read.csv(file.choose()) #read in the csv file
+```
+This code loads the data into our R environment. We can call the data frame anything we want, but in this example we've used the name `census`.
+
+
+# 2. Quick Tips on R
+To operate in R, you can run single commands or scripts (essentially text files with commands). Each command or function can have parameters defined by the user. 
+
+Both `<-` or `=` are used to assign data to a variable or data frame. For example, running the R code seen in the first box produces the answer seen in the second box:
+```{r eval=TRUE}
+x <- 2
+y = 3
+sumofxy <- sum(x,y)
+sumofxy
+```
+
+If you ever want information about a function or parameter in R, precede the function or parameter with `?` in the console:
+```{r tidy=FALSE}
+?sum
+```
+
+Any text preceeded by a `#` is a comment to explain the code, and is not run by R. To begin getting a feel for R, run the following lines of helpful tricks in your R environment:
 ```{r}
 #a few helpful tricks
 ########
-c(1,2,3) #concatanate a set of elements
+c(1,2,3) #concatenate a set of elements
 1:20 #list numbers between two numbers
 colors() #list all of R's colors
 palette() #show the current order of colors
@@ -44,19 +78,21 @@ palette(c("green","brown","red")) #set user defined colors
 identify(x,y,labels=labelfield) #label points interactively
 ```
 
+For those unfamiliar with R, below are a few introductory resources for general exploration: 
 
-# Understanding your Data
+- [*Tutorials for Learning R*](https://www.r-bloggers.com/how-to-learn-r-2/) on r-bloggers.com
+- [*Quick R*](http://www.statmethods.net/) by Robert I. Kabacoff, Ph.D.
+- [*R for Data Science*](http://r4ds.had.co.nz/) by Garrett Grolemund and Hadly Wickham
+
+
+# 3. Understanding your Data
 ```{r}
-#loading the data
-
-#we can call the data frame anything we want, but I've used census for this example
-census <- read.csv(file.choose()) #read in the csv file
 head(census) #see the headers plus the first six rows
 summary(census) #see some summary statistics
 fix(census) #open an excel-esque data editor
 ```
 
-# Organizing/Manipulating Data
+# 4. Organizing/Manipulating Data
 
 ```{r}
 #use this formula in excel or R to map a variable to be between two numbers (i.e. mapping a variable to use for size between 1 and 10):
@@ -77,9 +113,9 @@ lower <- census[census$region=="south",]
 ```
 
 
-## Scaling
+### Scaling
 
-## Normalizing
+### Normalizing
 ```{r}
 #we can plot the log of a variable by simply addiing it to the plot command
 plot(census$hh_income, log(census$population,2))
@@ -88,13 +124,13 @@ plot(census$hh_income, log(census$population,2))
 plot(census$hh_income, census$population/census$area)
 ```
 
-## Aggregating
+### Aggregating
 
 
-# Choosing Appropriate Visualization(s)
+# 5. Choosing Appropriate Visualization(s)
 
-# Visualizing 'Simple' Data (1-2 variables)
-## 1 Variable
+# 6. Visualizing 'Simple' Data (1-2 variables)
+### 1 Variable
 ```{r}
 #histogram
 ############
@@ -108,7 +144,7 @@ boxplot(census[,12],census[,13],col="lightblue",names=c("men","women"),main="Med
 boxplot(hh_income ~ region,data=census, col="lightgreen", main="Median Income by Region\nby County ACS 2006-2010") #this will give us household in come by region
 
 ```
-## 2 Variables
+### 2 Variables
 ```{r}
 #scatter plot
 ##############
@@ -132,7 +168,7 @@ points(central$rent,central$hh_income,pch=20,col="red")
 points(lower$rent,lower$hh_income,pch=20,col="green")
 ```
 
-# Visualizing 'Complex' Data (3+ variables)
+# 7. Visualizing 'Complex' Data (3+ variables)
 
 ```{r}
 #multiple scatterplots can be made by choosing multiple variables (this will plot columns 5 through 11)
@@ -146,9 +182,9 @@ points(census$rent,census$hh_income,pch=20,col="blue")
 ```
 
 
-# More Types of Visualizations
+# 8. More Types of Visualizations
 
-# Some Statistics
+# 9. Some Statistics
 ```{r}
 #sample statistics
 ############

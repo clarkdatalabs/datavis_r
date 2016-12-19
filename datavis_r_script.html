@@ -229,9 +229,11 @@ div.tocify {
 
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<div id="outline" class="section level2">
-<h2>Outline</h2>
-<ul>
+<p>This tutorial provides some basic instruction on (1) how to visualize data, and (2) how to use R for data visualization. This tutorial covers the topics listed below:</p>
+<div id="outline" class="section level3">
+<h3>Outline</h3>
+<ol style="list-style-type: decimal">
+<li>Install R and Upload Data</li>
 <li>Quick Tips on R</li>
 <li>Understanding your Data</li>
 <li>Organizing/Manipulating Data</li>
@@ -240,34 +242,58 @@ div.tocify {
 <li>Visualizing ‘Complex’ Data (3+ variables)</li>
 <li>More Types of Visualizations</li>
 <li>Some Statistics</li>
-</ul>
+</ol>
+</div>
+</div>
+<div id="install-r-and-upload-data" class="section level1">
+<h1>1. Install R and Upload Data</h1>
+<div id="install-r" class="section level3">
+<h3>Install R</h3>
+<p><a href="https://www.r-project.org">R</a> is an open-source language for graphics and statistical computing, and <strong>must be downloaded</strong> <a href="https://cran.r-project.org/mirrors.html">here</a> <strong>for this tutorial</strong> by selecting your preferred CRAN mirror. One of the major advantages of using R is that it’s free and therefore has a large base of users creating a wide diversity of plug-ins available to all other users in the form of <em>packages</em>.</p>
+<p><a href="https://www.rstudio.com/">RStudio</a> is a helpful and commonly used graphical user interface for R, which can be downloaded <a href="https://www.rstudio.com/products/rstudio/download3/">here</a> if desired.</p>
+</div>
+<div id="upload-data" class="section level3">
+<h3>Upload Data</h3>
+<p>To complete this tutorial, first <strong>download and unzip the folder provided at the top of this tutorial</strong>. Next, run the following line of code which prompts you to select the provided <code>data.csv</code> file within the downloaded folder.</p>
+<pre class="r"><code>census &lt;- read.csv(file.choose())  #read in the csv file</code></pre>
+<p>This code loads the data into our R environment. We can call the data frame anything we want, but in this example we’ve used the name <code>census</code>.</p>
 </div>
 </div>
 <div id="quick-tips-on-r" class="section level1">
-<h1>Quick Tips on R</h1>
-<p><strong>INSERT INFO ON COMMENTS AND ? AND PACKAGES? LINKs LIKE MAPPING_R?</strong></p>
+<h1>2. Quick Tips on R</h1>
+<p>To operate in R, you can run single commands or scripts (essentially text files with commands). Each command or function can have parameters defined by the user.</p>
+<p>Both <code>&lt;-</code> or <code>=</code> are used to assign data to a variable or data frame. For example, running the R code seen in the first box produces the answer seen in the second box:</p>
+<pre class="r"><code>x &lt;- 2
+y = 3
+sumofxy &lt;- sum(x, y)
+sumofxy</code></pre>
+<pre><code>## [1] 5</code></pre>
+<p>If you ever want information about a function or parameter in R, precede the function or parameter with <code>?</code> in the console:</p>
+<pre class="r"><code>?sum</code></pre>
+<p>Any text preceeded by a <code>#</code> is a comment to explain the code, and is not run by R. To begin getting a feel for R, run the following lines of helpful tricks in your R environment:</p>
 <pre class="r"><code># a few helpful tricks
-c(1, 2, 3)  #concatanate a set of elements
+c(1, 2, 3)  #concatenate a set of elements
 1:20  #list numbers between two numbers
 colors()  #list all of R's colors
 palette()  #show the current order of colors
 palette(rainbow(6))  #set colors
 palette(c(&quot;green&quot;, &quot;brown&quot;, &quot;red&quot;))  #set user defined colors
 identify(x, y, labels = labelfield)  #label points interactively</code></pre>
+<p>For those unfamiliar with R, below are a few introductory resources for general exploration:</p>
+<ul>
+<li><a href="https://www.r-bloggers.com/how-to-learn-r-2/"><em>Tutorials for Learning R</em></a> on r-bloggers.com</li>
+<li><a href="http://www.statmethods.net/"><em>Quick R</em></a> by Robert I. Kabacoff, Ph.D.</li>
+<li><a href="http://r4ds.had.co.nz/"><em>R for Data Science</em></a> by Garrett Grolemund and Hadly Wickham</li>
+</ul>
 </div>
 <div id="understanding-your-data" class="section level1">
-<h1>Understanding your Data</h1>
-<pre class="r"><code># loading the data
-
-# we can call the data frame anything we want, but I've used census for this
-# example
-census &lt;- read.csv(file.choose())  #read in the csv file
-head(census)  #see the headers plus the first six rows
+<h1>3. Understanding your Data</h1>
+<pre class="r"><code>head(census)  #see the headers plus the first six rows
 summary(census)  #see some summary statistics
 fix(census)  #open an excel-esque data editor</code></pre>
 </div>
 <div id="organizingmanipulating-data" class="section level1">
-<h1>Organizing/Manipulating Data</h1>
+<h1>4. Organizing/Manipulating Data</h1>
 <pre class="r"><code># use this formula in excel or R to map a variable to be between two numbers
 # (i.e. mapping a variable to use for size between 1 and 10): (new_max -
 # new_min) * ([value] - lowest_value) / (highest_value - lowest_value) +
@@ -283,11 +309,11 @@ fix(census)  #open an excel-esque data editor</code></pre>
 upper &lt;- census[census$region == &quot;upper&quot;, ]  #note the comma after the conditional!
 central &lt;- census[census$region == &quot;central&quot;, ]  #without the comma it defaults to the second part
 lower &lt;- census[census$region == &quot;south&quot;, ]</code></pre>
-<div id="scaling" class="section level2">
-<h2>Scaling</h2>
+<div id="scaling" class="section level3">
+<h3>Scaling</h3>
 </div>
-<div id="normalizing" class="section level2">
-<h2>Normalizing</h2>
+<div id="normalizing" class="section level3">
+<h3>Normalizing</h3>
 <pre class="r"><code># we can plot the log of a variable by simply addiing it to the plot command
 plot(census$hh_income, log(census$population, 2))
 
@@ -295,17 +321,17 @@ plot(census$hh_income, log(census$population, 2))
 # density)
 plot(census$hh_income, census$population/census$area)</code></pre>
 </div>
-<div id="aggregating" class="section level2">
-<h2>Aggregating</h2>
+<div id="aggregating" class="section level3">
+<h3>Aggregating</h3>
 </div>
 </div>
 <div id="choosing-appropriate-visualizations" class="section level1">
-<h1>Choosing Appropriate Visualization(s)</h1>
+<h1>5. Choosing Appropriate Visualization(s)</h1>
 </div>
 <div id="visualizing-simple-data-1-2-variables" class="section level1">
-<h1>Visualizing ‘Simple’ Data (1-2 variables)</h1>
-<div id="variable" class="section level2">
-<h2>1 Variable</h2>
+<h1>6. Visualizing ‘Simple’ Data (1-2 variables)</h1>
+<div id="variable" class="section level3">
+<h3>1 Variable</h3>
 <pre class="r"><code># histogram
 
 hist(census$unemploy, xlab = &quot;Unemployment&quot;, main = &quot;Histogram of Unemployment by County in Michigan&quot;)
@@ -316,8 +342,8 @@ boxplot(census[, 12], census[, 13], col = &quot;lightblue&quot;, names = c(&quot
     main = &quot;Median Income by Sex For Population\nThat Worked Full-time Last 12 Months\nby County ACS 2006-2010&quot;)
 boxplot(hh_income ~ region, data = census, col = &quot;lightgreen&quot;, main = &quot;Median Income by Region\nby County ACS 2006-2010&quot;)  #this will give us household in come by region</code></pre>
 </div>
-<div id="variables" class="section level2">
-<h2>2 Variables</h2>
+<div id="variables" class="section level3">
+<h3>2 Variables</h3>
 <pre class="r"><code># scatter plot
 
 plot(census$unemploy, census$hh_income)
@@ -340,7 +366,7 @@ points(lower$rent, lower$hh_income, pch = 20, col = &quot;green&quot;)</code></p
 </div>
 </div>
 <div id="visualizing-complex-data-3-variables" class="section level1">
-<h1>Visualizing ‘Complex’ Data (3+ variables)</h1>
+<h1>7. Visualizing ‘Complex’ Data (3+ variables)</h1>
 <pre class="r"><code># multiple scatterplots can be made by choosing multiple variables (this
 # will plot columns 5 through 11)
 plot(census[5:11], cex = 0.7)
@@ -353,10 +379,10 @@ plot(census$rent, census$hh_income, cex = census$unemploy * 18, pch = 20, col = 
 points(census$rent, census$hh_income, pch = 20, col = &quot;blue&quot;)</code></pre>
 </div>
 <div id="more-types-of-visualizations" class="section level1">
-<h1>More Types of Visualizations</h1>
+<h1>8. More Types of Visualizations</h1>
 </div>
 <div id="some-statistics" class="section level1">
-<h1>Some Statistics</h1>
+<h1>9. Some Statistics</h1>
 <pre class="r"><code># sample statistics
 
 # t-test
