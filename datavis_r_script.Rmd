@@ -1,6 +1,6 @@
 ---
 title: "Data Visualization Strategies in R"
-author: "Justin Joque, Nicole Scholtz (Clark Data Labs)"
+author: "Justin Joque (Clark Data Labs)"
 date: "12/12/2016" 
 output: 
   html_document:
@@ -38,7 +38,7 @@ This tutorial provides some basic instruction on (1) how to visualize data, and 
 ### Install R
 [R](https://www.r-project.org) is an open-source language for graphics and statistical computing, and **must be downloaded** [here](https://cran.r-project.org/mirrors.html) **for this tutorial** by selecting your preferred CRAN mirror. One of the major advantages of using R is that it's free and therefore has a large base of users creating a wide diversity of plug-ins available to all other users in the form of *packages*.
 
-[RStudio](https://www.rstudio.com/) is a helpful and commonly used graphical user interface for R, which can be downloaded [here](https://www.rstudio.com/products/rstudio/download3/) if desired.
+([RStudio](https://www.rstudio.com/) is a helpful and commonly used graphical user interface for R, which can be downloaded [here](https://www.rstudio.com/products/rstudio/download3/) if desired.)
 
 ### Upload Data
 
@@ -86,11 +86,23 @@ For those unfamiliar with R, below are a few introductory resources for general 
 
 
 # 3. Understanding your Data
+
+Before visualizing data, it's important to understand the underlying data you're working with. The first step is identifying the number of variables you'd interested in comparing---i.e. the dimensionality of your analysis---and the second step is identifying the of data contained in each variable of interest (e.g. is it continuous or categorical?)
+
+### Dimensionality
+
+The number of variables you're interested in comparing determines the type(s) of visualizations available to you. Let's say you want to know more about your friend's pets. You take data on your friends Jane, John, and Moe and document how many cats and dogs they have. 
+
+
+After uploading your `census` data into the R environment, run the following lines of code to explore your dataset.
 ```{r}
-head(census) #see the headers plus the first six rows
-summary(census) #see some summary statistics
-fix(census) #open an excel-esque data editor
+names(census) #see all header names
+head(census) #see the headers plus the first six rows of data
+summary(census) #see some summary statistics of each column
+fix(census) #open an excel-esque data editor (CAREFUL: there is no record of this change, nor does it change the data in the csv file)
 ```
+
+
 
 # 4. Organizing/Manipulating Data
 
