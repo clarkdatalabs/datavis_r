@@ -1,0 +1,195 @@
+---
+title: "Data Visualization Strategies in R: Part 1"
+author: "Justin Joque (Clark Data Labs)"
+date: "12/12/2016" 
+output: 
+  html_document:
+      toc: true # table of content true
+      toc_float: 
+         collapsed: false
+         smooth_scroll: false
+      depth: 3  # display up to three depths of headings (specified by #, ## and ###)
+      number_sections: false  # if you want number sections at each table header
+      theme: united  # one of many options for theme
+   
+---
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(eval=FALSE, tidy = TRUE, fig.align='center')
+```
+
+# Tutorial Outline
+
+This tutorial is the first of a two-part series providing some basic instruction on how to (a) visualize data, and (b) use R for visualizations.
+
+**Part 1** Includes:
+
+1. **Installing R and Quick Tips**
+      - Install R
+      - Quick Tips
+2. **Upload Data**
+3. **Understanding your Data Before Visualization**
+      -Dimensionality
+      i. Organizing and Manipulating Data
+            - Scaling
+            - Normalizing
+            - Aggregating
+      ii. Choosing Appropriate Visualization(s)
+4. **Visualizing 'Simple' Data (1-2 variables)**
+      - Visualizing 1 Variable
+      - Visualizing 2 Variable
+
+*To see* **Part 2**, *visit: INSERT LINK HERE*
+
+# 1. Installing R and Quick Tips
+
+#### Install R
+[R](https://www.r-project.org) is an open source language for graphics and statistical computing, and **must be downloaded** [here](https://cran.r-project.org/mirrors.html) **for this tutorial** by selecting your preferred CRAN mirror. ([RStudio](https://www.rstudio.com/) is a helpful and commonly used graphical user interface for R, which can be downloaded [here](https://www.rstudio.com/products/rstudio/download3/) if desired.)
+
+#### Quick Tips
+To operate in R, you can run single commands or scripts (essentially text files with lists of commands). Each command or function can have parameters defined by the user. 
+
+Any text preceeded by a `#` is a comment to explain the code, and is not run by R.
+
+Both `<-` or `=` are used to assign data to a variable or data frame. For example, running the following R code produces the answer seen in the second box:
+```{r eval=TRUE}
+x <- 2 #assigns the value '2' to the variable x
+y = 3 #assigns the value '3' to the variable y
+sumofxy <- sum(x,y) #uses the sum() function to add variables x and y, saving the results into variably sumofxy
+sumofxy #displays value of sumofxy
+```
+
+To find information about a function or parameter in R, precede the function or parameter with `?` in the console:
+```{r tidy=FALSE}
+?sum
+```
+
+To begin getting a feel for R, run the following lines of helpful tricks in your R environment:
+```{r}
+#a few helpful tricks
+########
+c(1,2,3) #concatenate a set of elements
+1:20 #list numbers between two numbers
+colors() #list all of R's colors
+palette() #show the current order of colors
+
+palette(rainbow(6)) #set colors
+palette() #shows how current order of colors has been re-defined 
+
+palette(c("green","brown","red")) #set user defined colors
+palette() #shows how current order of colors has been re-defined 
+```
+
+One advantage of R being free and open source is a large base of users have created a wide diversity of 'plug-ins' available to users in the form of *packages*.
+
+For further exploration of R, below are a few introductory resources: 
+
+- [*Tutorials for Learning R*](https://www.r-bloggers.com/how-to-learn-r-2/) on r-bloggers.com
+- [*Quick R*](http://www.statmethods.net/) by Robert I. Kabacoff, Ph.D.
+- [*R for Data Science*](http://r4ds.had.co.nz/) by Garrett Grolemund and Hadly Wickham
+
+# 2. Upload data to R
+
+To complete this tutorial, first **download and unzip the folder provided at the top of this tutorial**. Next, run the following line of code which prompts you to select the provided `data.csv` file within the downloaded folder. 
+```{r}
+census <- read.csv(file.choose()) #read in the csv file
+```
+This code loads the data into our R environment. We can call the data frame anything we want, but in this example we've used the name `census`.
+
+After uploading your `census` data into the R environment, run the following lines of code to explore your dataset.
+```{r}
+names(census) #see all header (column) names
+head(census) #see the headers plus the first six rows of data within each header
+summary(census) #see some summary statistics of each column
+fix(census) #open an excel-esque data editor (CAREFUL: there is no record of this change, nor does it change the data in the csv file)
+```
+
+
+# 3. Understanding your Data
+
+Before visualizing data, it's important to understand the underlying data you're working with. The first step is identifying the number of variables you'd interested in comparing---i.e. the dimensionality of your analysis---and the second step is identifying the type of data contained in each variable of interest---e.g. is it continuous or categorical?
+
+#### Dimensionality
+
+The number of variables you're interested in comparing determines the type(s) of visualizations available to you. Let's say you want to know more about your friend's pets. You take data on your friends Jane, John, and Moe and document how many cats and dogs they have. You're interested in whether having a cat (one variable) has any relationship with having a dog (another variable). Since you're interested in two variables, this analysis is **2-dimensional**:
+
+![](images/dimensionality-2var.png)
+
+
+
+### 3.i. Organizing and Manipulating Data
+
+```{r}
+#use this formula in excel or R to map a variable to be between two numbers (i.e. mapping a variable to use for size between 1 and 10):
+#(new_max - new_min) * ([value] - lowest_value) / (highest_value - lowest_value) + new_min
+
+#it is easy to add a new column:
+#census$newcol <- [formula]
+
+#subsetting data
+################
+
+# census[1:5] returns the first 5 columns, as does census[,1:5], but census[1:5,] give the first five rows
+
+upper <- census[census$region=="upper",] #note the comma after the conditional!
+central <- census[census$region=="central",] #without the comma it defaults to the second part
+lower <- census[census$region=="south",]
+
+```
+
+
+#### Scaling
+
+#### Normalizing
+```{r}
+#we can plot the log of a variable by simply addiing it to the plot command
+plot(census$hh_income, log(census$population,2))
+
+#for the y axis this is the population normalized by area (population density)
+plot(census$hh_income, census$population/census$area)
+```
+
+#### Aggregating
+
+
+### 3.ii. Choosing Appropriate Visualization(s)
+
+# 4. Visualizing 'Simple' Data (1-2 variables)
+#### 1 Variable
+```{r}
+#histogram
+############
+
+hist(census$unemploy,xlab="Unemployment",main="Histogram of Unemployment by County in Michigan") 
+#by adding breaks as a paramter we can increase or decrease the bin-size
+
+#boxplot
+###########
+boxplot(census[,12],census[,13],col="lightblue",names=c("men","women"),main="Median Income by Sex For Population\nThat Worked Full-time Last 12 Months\nby County ACS 2006-2010")
+boxplot(hh_income ~ region,data=census, col="lightgreen", main="Median Income by Region\nby County ACS 2006-2010") #this will give us household in come by region
+
+```
+#### 2 Variables
+```{r}
+#scatter plot
+##############
+
+plot(census$unemploy,census$hh_income)
+#cex controls the size of the points (1 is default)
+
+#subsetting data (repeat from Organizing/Manipulating Data Above)
+################
+
+# census[1:5] returns the first 5 columns, as does census[,1:5], but census[1:5,] give the first five rows
+
+upper <- census[census$region=="upper",] #note the comma after the conditional!
+central <- census[census$region=="central",] #without the comma it defaults to the second part
+lower <- census[census$region=="south",]
+
+#we can also build up a plot by using the points function i.e.
+plot(c(0,max(census$rent)),c(0,max(census$hh_income)),type="n") #create a blank canvas
+points(upper$rent,upper$hh_income,pch=20,col="blue")
+points(central$rent,central$hh_income,pch=20,col="red")
+points(lower$rent,lower$hh_income,pch=20,col="green")
+```
+

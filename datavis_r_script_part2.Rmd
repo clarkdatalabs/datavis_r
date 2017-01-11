@@ -1,0 +1,80 @@
+---
+title: "Data Visualization Strategies in R: Part 2"
+author: "Justin Joque (Clark Data Labs)"
+date: "12/12/2016" 
+output: 
+  html_document:
+      toc: true # table of content true
+      toc_float: 
+         collapsed: false
+         smooth_scroll: false
+      depth: 3  # display up to three depths of headings (specified by #, ## and ###)
+      number_sections: false  # if you want number sections at each table header
+      theme: united  # one of many options for theme
+   
+---
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(eval=FALSE, tidy = TRUE, fig.align='center')
+```
+
+# Tutorial Outline
+
+This tutorial is the second of a two-part series providing some basic instruction on how to (a) visualize data, and (b) use R for visualizations.
+
+**Part 2** Includes: 
+
+1. **Visualizing 'Complext' Data (3+ variables)**
+2. **More Types of Visualizations**
+3. **Some Statistics**
+
+*To see* **Part 1**, *visit: INSERT LINK HERE*
+
+# 1. Visualizing 'Complex' Data (3+ variables)
+
+```{r}
+#multiple scatterplots can be made by choosing multiple variables (this will plot columns 5 through 11)
+plot(census[5:11], cex=.7)
+
+#tying other information to variables; here we take the unemployment and use it as the size
+plot(census$rent,census$hh_income,cex=census$unemploy*18,pch=20,col="red") #pch=20 chooses a different symbol
+
+#we can also build up a plot by using the points function i.e.
+points(census$rent,census$hh_income,pch=20,col="blue")
+```
+
+
+# 2. More Types of Visualizations
+
+
+```{r}
+x <- census$area #assign area data (from census) to variable named x  
+y <- census$population #assign population data (from census) to variable named y
+labelfield <- census$name #assign name data (from census) to variable named labelfield
+plot(x,y) #graph y v. x
+identify(x,y,labels=labelfield) #label points interactively #click on points to be labeled, press 'esc' key to see results
+```
+
+
+# 3. Some Statistics
+```{r}
+#sample statistics
+############
+
+#t-test
+t.test(census$inc_male_15_w,census$inc_female_15_w)
+#paired t-test
+t.test(census$inc_male_15_w,census$inc_female_15_w,paired=TRUE)
+
+#correlation
+cor.test(census$bach_degree,census$unemploy)
+
+#linear models
+#############
+
+plot (census$unemploy ~ census$bach_degree)
+model <- lm(census$unemploy ~ census$bach_degree)
+plot(model)
+
+```
+
