@@ -1,5 +1,5 @@
 ---
-title: "Data Visualization Strategies in R: Part 1"
+title: "Data Visualization in R: Part 1"
 author: "Justin Joque (Clark Data Labs)"
 date: "12/12/2016" 
 output: 
@@ -8,9 +8,11 @@ output:
       toc_float: 
          collapsed: false
          smooth_scroll: false
+      fig_width: 5
+      fig_height: 3
       depth: 3  # display up to three depths of headings (specified by #, ## and ###)
       number_sections: false  # if you want number sections at each table header
-      theme: united  # one of many options for theme
+      theme: cosmo  # one of many options for theme
    
 ---
 
@@ -90,7 +92,7 @@ For further exploration of R, below are a few introductory resources:
 
 # 2. Upload data to R
 
-To complete this tutorial, first **download and unzip the folder provided at the top of this tutorial**. Next, run the following line of code which prompts you to select the provided `data.csv` file within the downloaded folder. 
+To complete this tutorial, first **download and unzip the folder provided at the top of this tutorial**. Next, run the following line of code in the R console, which prompts you to select the provided `data.csv` file within the downloaded folder. 
 ```{r}
 census <- read.csv(file.choose()) #read in the csv file
 ```
@@ -105,17 +107,53 @@ fix(census) #open an excel-esque data editor (CAREFUL: there is no record of thi
 ```
 
 
-# 3. Understanding your Data
+# 3. Understanding your Data {.tabset}
 
 Before visualizing data, it's important to understand the underlying data you're working with. The first step is identifying the number of variables you'd interested in comparing---i.e. the dimensionality of your analysis---and the second step is identifying the type of data contained in each variable of interest---e.g. is it continuous or categorical?
 
 #### Dimensionality
 
-The number of variables you're interested in comparing determines the type(s) of visualizations available to you. Let's say you want to know more about your friend's pets. You take data on your friends Jane, John, and Moe and document how many cats and dogs they have. You're interested in whether having a cat (one variable) has any relationship with having a dog (another variable). Since you're interested in two variables, this analysis is **2-dimensional**:
+The number of variables you're interested in comparing determines the type(s) of visualizations available to you.  
 
-![](images/dimensionality-2var.png)
+Let's say you want to know more about your friends' pets. You take data on your friends Jane, John, and Moe and document how many cats and dogs they have. You're interested in the seeing the relationship between having a cat (one variable) and having a dog (another variable). Since you're interested in two variables, this analysis is **2-dimensional**:  
 
+![](images/dimensionality-2var.png)  
 
+If you also ask your friends about their pet mice, you'd now be interested in three variables (number of cats, dogs, mice), or a **3-dimensional** analysis:  
+
+![](images/dimensionality-3var.png)  
+
+The dimensionality of an analysis is theoretically limitless, but becomes increasingly complicated and harder (although often more interesting) to visualize the more variables that are included. How would you graph your friends' pet preferences once you added the fourth dimension of bird data?
+
+![](images/dimensionality-4var-p1.png)
+
+There are many interesting ways to visualize multiple dimensions, but a good place to start is often in 2-dimensions, as matching each variable to every other variable in a pair-wise fashion begins to reveal relationships in the dataset.
+
+![](images/dimensionality-4var-p2.png)
+
+Each visualization requires careful consideration of which relationships are important to show.  
+
+The following visualization of the 4 pet types, for example, is effective in showing how pets are distributed among your friends, but makes the relationship between owning one type of pet and owning another type of pet less clear than the previous visualization. 
+
+![](images/dimensionality-4var-in1graph.png)
+
+#### Data Type
+
+Knowing what kind of data you're visualizing determines a great deal of your visualization (and statistics) possiblities. Each one of your variables should be classified as one of the following:
+
+|DATA TYPE   |Defined As...                  | Example                       |
+|:-----------|:-----------------------------:|:-----------------------------:|
+|**Continuous** |any value over a continuous range of numbers|Height. Can theoretically take on any number over a certain range.|
+|**Discrete (ordered)**|only taking on particular values that have an order in relation to each other| Number of pets your friends own. |
+|**Discrete (unordered)**|can think of as bins, no in-between values between each bin and no inherent order to the types of bins| Your friend's names. |
+
+#### Putting it together...
+
+Once you know the type of data you have and the dimensionality of your desired visualization, you're ready to decide what you'd like to show and you'd like to do it.
+
+To give an example of the possibilities:
+
+![Made by A. Abela](images/pick-your-visualization.png)
 
 ### 3.i. Organizing and Manipulating Data
 
@@ -137,10 +175,10 @@ lower <- census[census$region=="south",]
 
 ```
 
-
 #### Scaling
 
 #### Normalizing
+
 ```{r}
 #we can plot the log of a variable by simply addiing it to the plot command
 plot(census$hh_income, log(census$population,2))
