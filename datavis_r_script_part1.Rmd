@@ -31,12 +31,14 @@ This tutorial is the first of a two-part series providing some basic instruction
       - Quick Tips
 2. **Upload Data**
 3. **Understanding your Data Before Visualization**
-      -Dimensionality
-      i. Organizing and Manipulating Data
+      ii. Choosing Appropriate Visualization(s)
+            - Dimensionality
+            - Defining Data Types
+            - Putting it Together
+      i. Organizing and Re-Structuring Data in R
             - Scaling
             - Normalizing
             - Aggregating
-      ii. Choosing Appropriate Visualization(s)
 4. **Visualizing 'Simple' Data (1-2 variables)**
       - Visualizing 1 Variable
       - Visualizing 2 Variable
@@ -100,6 +102,7 @@ This code loads the data into our R environment. We can call the data frame anyt
 
 After uploading your `census` data into the R environment, run the following lines of code to explore your dataset.
 ```{r}
+View(census) #view the data table in its entirety
 names(census) #see all header (column) names
 head(census) #see the headers plus the first six rows of data within each header
 summary(census) #see some summary statistics of each column
@@ -109,13 +112,19 @@ fix(census) #open an excel-esque data editor (CAREFUL: there is no record of thi
 
 # 3. Understanding your Data {.tabset}
 
-Before visualizing data, it's important to understand the underlying data you're working with. The first step is identifying the number of variables you'd interested in comparing---i.e. the dimensionality of your analysis---and the second step is identifying the type of data contained in each variable of interest---e.g. is it continuous or categorical?
+Before visualizing data, it's important to define your research question, understand the underlying data you're working with, and prepare the appropriate data as needed for visualization. 
+
+The first step is using your research question to identify the number of variables you're interested in comparing---i.e. the dimensionality of your analysis---and the type of data contained in each variable of interest---e.g. is it continuous or discrete? 
+
+Sometimes a second step is required, where the data needs to be organized or re-structured before the final step of visualization.
+
+### 3.i. Choosing Appropriate Visualization(s)
 
 #### Dimensionality
 
-The number of variables you're interested in comparing determines the type(s) of visualizations available to you.  
+The dimensionality, or number of variables you're interested in comparing, determines the type(s) of visualizations available to you.  
 
-Let's say you want to know more about your friends' pets. You take data on your friends Jane, John, and Moe and document how many cats and dogs they have. You're interested in the seeing the relationship between having a cat (one variable) and having a dog (another variable). Since you're interested in two variables, this analysis is **2-dimensional**:  
+To illustrate what different dimension may look like, let's take data on your friends Jane, John, and Moe and document how many cats and dogs they have. You're interested in  seeing the relationship between having a cat (one variable) and having a dog (another variable). Since you're interested in two variables, this analysis is **2-dimensional**:  
 
 ![](images/dimensionality-2var.png)  
 
@@ -137,43 +146,80 @@ The following visualization of the 4 pet types, for example, is effective in sho
 
 ![](images/dimensionality-4var-in1graph.png)
 
-#### Data Type
+#### Defining Data Types
 
-Knowing what kind of data you're visualizing determines a great deal of your visualization (and statistics) possiblities. Each one of your variables should be classified as one of the following:
+Knowing what kind of data you're visualizing is also important, because it determines a great deal of your visualization (and statistical) possiblities. Each one of your variables should be classified as one of the following:
 
 |DATA TYPE   |Defined As...                  | Example                       |
 |:-----------|:-----------------------------:|:-----------------------------:|
-|**Continuous** |any value over a continuous range of numbers|Height. Can theoretically take on any number over a certain range.|
-|**Discrete (ordered)**|only taking on particular values that have an order in relation to each other| Number of pets your friends own. |
-|**Discrete (unordered)**|can think of as bins, no in-between values between each bin and no inherent order to the types of bins| Your friend's names. |
+|**Continuous** |can take any value over a continuous range of numbers|A dog's weight: could be measured to any fraction of a pound|
+|**Discrete  (ordered)**|can only take on particular set of values that have an order in relation to each other| Number of dogs your friends own. (They can't own half a dog.) |
+|**Discrete  (unordered)**|can only take on particular set of values that have no order associated with them; can think of as bins, no in-between values and no inherent order to the types of bins| Your friends' names. |
+
+To test your knowledge, use the data collected on your friends' pets' and:  
+
+ * a. define the three main variables used in the last visualization created above
+ * b. categorize the type of data each variable contains
+
+*Answers*: a. variable 1: friends, variable 2: type of pet, variable 3: number of pets. b. variable 1: discrete (unordered), variable 2: discrete (unordered) , variable 3: discrete (ordered)
 
 #### Putting it together...
 
-Once you know the type of data you have and the dimensionality of your desired visualization, you're ready to decide what you'd like to show and you'd like to do it.
+Once you know the **dimensionality** and **type of data** for your research question, you're ready to decide what you'd like to visualize and you'd like to do it.
 
-To give an example of the possibilities:
+For example, if you had 2-dimensional data (2 variables) and both variables were continous, you could produce a scatterplot. If you have 3-dimensional data (3 variables), and two variables were continuous while one variable was discrete, you could product a bubble chart.
+
+See below for an illustation of a scatterplot or bubble plot, and notice the numerous possibilites depending on dimensionality and type of data:
 
 ![Made by A. Abela](images/pick-your-visualization.png)
 
-### 3.i. Organizing and Manipulating Data
+### 3.ii. Organizing and Re-Structuring Data in R
 
+At times data needs to be re-organized or re-structured to attain the variables of interest. 
+
+Returning the census data we uploaded in Step 2., perhaps we're interested in looking at rent on a scale of 1-10. Run the following code to find the current range, or simply maximum or minimum, of the 'rent' data in the 'census' data frame.
 ```{r}
-#use this formula in excel or R to map a variable to be between two numbers (i.e. mapping a variable to use for size between 1 and 10):
-#(new_max - new_min) * ([value] - lowest_value) / (highest_value - lowest_value) + new_min
+range(census$rent) 
+max(census$rent)
+min(census$rent)
+```
 
+Before looking at the answer below, try using the following formula in R to map the 'rent' variable in 'census' to be between 1-10:
+```{r}
+#(new_max - new_min) * ([value] - lowest_value) / (highest_value - lowest_value) + new_min
+```
+
+*Answer*:
+```{r}
+(10-1) * ( (census$rent - min(census$rent)) / (max(census$rent) - min(census$rent)) ) + 1
+```
+
+The following code adds our result as a new column of data labeled 'rent_10':
+```{r}
 #it is easy to add a new column:
 #census$newcol <- [formula]
 
+census$rent_10 <- (10-1) * ( (census$rent - min(census$rent)) / (max(census$rent) - min(census$rent)) ) + 1
+
+```
+
+Another very useful re-structuring technique involves taking a subset of data. Try the following:
+```{r}
 #subsetting data
 ################
 
 # census[1:5] returns the first 5 columns, as does census[,1:5], but census[1:5,] give the first five rows
 
 upper <- census[census$region=="upper",] #note the comma after the conditional!
-central <- census[census$region=="central",] #without the comma it defaults to the second part
-lower <- census[census$region=="south",]
+View(upper) #observe how newley created "upper" differs from "census" data
 
+central <- census[census$region=="central",] #without the comma it defaults to the second part
+View(central)
+
+lower <- census[census$region=="south",]
+View(lower)
 ```
+
 
 #### Scaling
 
@@ -190,9 +236,10 @@ plot(census$hh_income, census$population/census$area)
 #### Aggregating
 
 
-### 3.ii. Choosing Appropriate Visualization(s)
-
 # 4. Visualizing 'Simple' Data (1-2 variables)
+
+If your final visual looks boring, get better data!
+
 #### 1 Variable
 ```{r}
 #histogram
