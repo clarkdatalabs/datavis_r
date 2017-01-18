@@ -36,8 +36,9 @@ This tutorial is the first of a two-part series providing some basic instruction
             - Defining Data Types
             - Putting it Together
       i. Organizing and Re-Structuring Data in R
-            - Scaling
-            - Normalizing
+            - Mapping to a Different Scale
+            - Selecting Subsets
+            - Scaling and Normalizing
             - Aggregating
 4. **Visualizing 'Simple' Data (1-2 variables)**
       - Visualizing 1 Variable
@@ -55,7 +56,7 @@ To operate in R, you can run single commands or scripts (essentially text files 
 
 Any text preceeded by a `#` is a comment to explain the code, and is not run by R.
 
-Both `<-` or `=` are used to assign data to a variable or data frame. For example, running the following R code produces the answer seen in the second box:
+Both `<-` or `=` are used to assign data to a variable (e.g. x) or data frame (essentially a data set containing data from multiple variables x, y, z, etc.). For example, running the following R code produces the answer seen in the second box:
 ```{r eval=TRUE}
 x <- 2 #assigns the value '2' to the variable x
 y = 3 #assigns the value '3' to the variable y
@@ -107,6 +108,12 @@ names(census) #see all header (column) names
 head(census) #see the headers plus the first six rows of data within each header
 summary(census) #see some summary statistics of each column
 fix(census) #open an excel-esque data editor (CAREFUL: there is no record of this change, nor does it change the data in the csv file)
+```
+
+To select a column of data, preface the name of the columns with the name of the data from (in this case, `census`) and a `$`.
+```{r}
+census$rent
+census$region
 ```
 
 
@@ -169,19 +176,23 @@ Once you know the **dimensionality** and **type of data** for your research ques
 
 For example, if you had 2-dimensional data (2 variables) and both variables were continous, you could produce a scatterplot. If you have 3-dimensional data (3 variables), and two variables were continuous while one variable was discrete, you could product a bubble chart.
 
-See below for an illustation of a scatterplot or bubble plot, and notice the numerous possibilites depending on dimensionality and type of data:
+See below for an illustation of a scatterplot or bubble plot, and notice the numerous visualization possibilites depending on dimensionality and type of data:
 
 ![Made by A. Abela](images/pick-your-visualization.png)
 
 ### 3.ii. Organizing and Re-Structuring Data in R
 
-At times data needs to be re-organized or re-structured to attain the variables of interest. 
+Often times data needs to be re-structured before visualization.
 
-Returning the census data we uploaded in Step 2., perhaps we're interested in looking at rent on a scale of 1-10. Run the following code to find the current range, or simply maximum or minimum, of the 'rent' data in the 'census' data frame.
+#### Mapping to a Different Scale
+
+Let's say we're interested in visualizing rent on a scale of 1-10. Returning to the census data uploaded in Step 2., if our 'rent' data is not already on this scale, we can easily map it to this scale in R.
+
+Run the following code to find the current maximum and minimum, or simply range, of the 'rent' data in the 'census' data frame.
 ```{r}
-range(census$rent) 
 max(census$rent)
 min(census$rent)
+range(census$rent)
 ```
 
 Before looking at the answer below, try using the following formula in R to map the 'rent' variable in 'census' to be between 1-10:
@@ -194,7 +205,7 @@ Before looking at the answer below, try using the following formula in R to map 
 (10-1) * ( (census$rent - min(census$rent)) / (max(census$rent) - min(census$rent)) ) + 1
 ```
 
-The following code adds our result as a new column of data labeled 'rent_10':
+The following code now adds our mapped data as a new column labeled 'rent_10' in our 'census' data frame:
 ```{r}
 #it is easy to add a new column:
 #census$newcol <- [formula]
@@ -203,7 +214,9 @@ census$rent_10 <- (10-1) * ( (census$rent - min(census$rent)) / (max(census$rent
 
 ```
 
-Another very useful re-structuring technique involves taking a subset of data. Try the following:
+#### Selecting Subsets
+
+Another very useful re-structuring technique involves taking a subset of existing data. Try the following to subset the 'census' data into 3 different unique data sets, each containing information about one 'region':
 ```{r}
 #subsetting data
 ################
@@ -211,7 +224,7 @@ Another very useful re-structuring technique involves taking a subset of data. T
 # census[1:5] returns the first 5 columns, as does census[,1:5], but census[1:5,] give the first five rows
 
 upper <- census[census$region=="upper",] #note the comma after the conditional!
-View(upper) #observe how newley created "upper" differs from "census" data
+View(upper) #compare how newly created "upper" differs from "census" data
 
 central <- census[census$region=="central",] #without the comma it defaults to the second part
 View(central)
@@ -221,20 +234,53 @@ View(lower)
 ```
 
 
-#### Scaling
+#### Scaling and Normalizing
 
-#### Normalizing
-
+R provides a variety of ways to transform data. Below are a few examples:
 ```{r}
-#we can plot the log of a variable by simply addiing it to the plot command
-plot(census$hh_income, log(census$population,2))
+census$population_transf <- (census$population)^5 #Raises population to the power of 5
+census$population_transf <- exp(census$population) #Raises the constant e to the power of population
 
-#for the y axis this is the population normalized by area (population density)
-plot(census$hh_income, census$population/census$area)
+census$population_transf <- cos(census$population) #Calculates the cosine of population
+census$population_transf <- abs(census$population) #Finds the absolute value of population
+
+census$population_transf <- (census$population)*10 #Multiplies population by 10
 ```
+
+One of the most common types of transformations are logarithmic transformations. In R, the default setting computes the natural log (where the base is the constant e), but the base can be set if the user explicitly states it.
+```{r}
+log(census$population) #Computes log base e of population
+log(census$population, 2) #Computes log base 2 of population
+log(census$population, 10) #Computes log base 10 of population
+```
+
+If you'd like to normalize one variable by using another, you can use simple operations:
+```{r}
+#create a variable of populations density by dividing population size by area
+census$pop_density <- census$population/census$area
+
+#log transform your new variable
+log(census$pop_density)
+
+```
+
 
 #### Aggregating
 
+You can apply simple aggregating functions such as sum, mean/median, or variance/standard deviation functions to aggregate data in R.
+```{r}
+sum(census$population) # Computes sum of population
+mean(census$population) # Computes mean of population
+var(census$population) # Computes variance of population
+sd(census$population) # Computes standard deviaation of population
+
+#you can often nest functions within each other
+median(log(census$population)) #Computes median of log of population
+```
+
+R also has an explicit function, aptly called `aggregate`, for aggregating data in complex ways, but it requires more advances knowledge of R that is outside the scope of this tutorial. (Remember, however, that to learn more about a function and how to use it, run `?[name of function]` in your R console, in this case `?aggregate`.) 
+
+In any case, using Pivot tables in Excel is an excellent way to aggregate data. (If you haven't tried it, we highly recommend you do!)
 
 # 4. Visualizing 'Simple' Data (1-2 variables)
 
@@ -261,6 +307,12 @@ boxplot(hh_income ~ region,data=census, col="lightgreen", main="Median Income by
 
 plot(census$unemploy,census$hh_income)
 #cex controls the size of the points (1 is default)
+
+#we can plot the log of a variable by simply adding it to the plot command
+plot(census$hh_income, log(census$population,2))
+
+#for the y axis this is the population normalized by area (population density)
+plot(census$hh_income, census$population/census$area)
 
 #subsetting data (repeat from Organizing/Manipulating Data Above)
 ################
