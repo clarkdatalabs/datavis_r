@@ -31,18 +31,20 @@ This tutorial is the first of a two-part series providing some basic instruction
       - Quick Tips
 2. **Upload Data**
 3. **Understanding your Data Before Visualization**
-      ii. Choosing Appropriate Visualization(s)
-            - Dimensionality
-            - Defining Data Types
-            - Putting it Together
-      i. Organizing and Re-Structuring Data in R
-            - Mapping to a Different Scale
-            - Selecting Subsets
-            - Scaling and Normalizing
-            - Aggregating
+      i. *Choosing Appropriate Visualization(s)*  
+            - Dimensionality  
+            - Defining Data Types  
+            - Putting it Together  
+      ii. *Organizing and Re-Structuring Data in R*  
+            - Mapping to a Different Scale  
+            - Selecting Subsets  
+            - Scaling and Normalizing  
+            - Aggregating  
 4. **Visualizing 'Simple' Data (1-2 variables)**
-      - Visualizing 1 Variable
-      - Visualizing 2 Variable
+      i. *Visualizing 1 Variable*  
+            - Histograms  
+            - Boxplots  
+      ii. *Visualizing 2 Variable*
 
 *To see* **Part 2**, *visit: INSERT LINK HERE*
 
@@ -284,23 +286,56 @@ In any case, using Pivot tables in Excel is an excellent way to aggregate data. 
 
 # 4. Visualizing 'Simple' Data (1-2 variables)
 
-If your final visual looks boring, get better data!
+Have you defined your research question? Know the dimensionality and the types of data contained in your data set? Have you organized your data as needed? If so, you're finally ready to start visualizing! 
 
-#### 1 Variable
+### Visualizing 1 Variable
+
+Oftentimes it's useful to visualize a singular variable to understand the size and shape of its distribution, and to see whether any outliers exist.
+
+Histograms and boxplots are common ways to visualize singular **continuous** variables, both of which are easily done in R. 
+
+#### Histograms
+
 ```{r}
-#histogram
-############
+hist(census$unemploy)
+hist(census$unemploy,xlab="Unemployment",main="Histogram of Unemployment by County \nin Michigan") # inserting better x-axis label (xlab parameter) and title (main parameter)
+```
+![](images/hist_unemploy.png)
 
-hist(census$unemploy,xlab="Unemployment",main="Histogram of Unemployment by County in Michigan") 
-#by adding breaks as a paramter we can increase or decrease the bin-size
+By adding breaks as a parameter we can increase or decrease the bin-size
+```{r}
+hist(census$unemploy,xlab="Unemployment",main="Histogram of Unemployment by County; 6 breaks", breaks=6) 
+hist(census$unemploy,xlab="Unemployment",main="Histogram of Unemployment by County; 20 breaks", breaks=20) 
+```
+![](images/hist_unemploy_6breaks.png)
+![](images/hist_unemploy_20breaks.png)
 
-#boxplot
+#### Boxplots
+
+Boxplots show various useful measures of distribution, including the average, the interquartile range, and any outliers in the data.
+
+```{r}
+#Boxplot
 ###########
-boxplot(census[,12],census[,13],col="lightblue",names=c("men","women"),main="Median Income by Sex For Population\nThat Worked Full-time Last 12 Months\nby County ACS 2006-2010")
-boxplot(hh_income ~ region,data=census, col="lightgreen", main="Median Income by Region\nby County ACS 2006-2010") #this will give us household in come by region
+boxplot(census$area, main="County Area ACS 2006-2010")
+boxplot(census$age, main="")
+
 
 ```
-#### 2 Variables
+
+
+### Visualizing 2 Variables
+
+#### Boxplots
+
+```{r}
+boxplot(census[,12],census[,13],col="lightblue",names=c("men","women"),main="Median Income by Sex For Population\nThat Worked Full-time Last 12 Months\nby County ACS 2006-2010")
+boxplot(hh_income ~ region,data=census, col="lightgreen", main="Median Income by Region\nby County ACS 2006-2010") #this will give us household in come by region
+```
+
+
+#### Scatterplots
+
 ```{r}
 #scatter plot
 ##############
@@ -330,3 +365,4 @@ points(central$rent,central$hh_income,pch=20,col="red")
 points(lower$rent,lower$hh_income,pch=20,col="green")
 ```
 
+If your final visual looks boring, it probably means it's time to get better data!
