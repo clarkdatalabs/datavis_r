@@ -3,16 +3,16 @@ title: 'Data Visualization and R: Part 1'
 author: "Justin Joque (Clark Data Labs) and Maria-Carolina Simao"
 date: "12/12/2016"
 output:
+  pdf_document:
+    toc: yes
   html_document:
     number_sections: no
     theme: cosmo
     toc: yes
-    toc_depth: 2  
+    toc_depth: 2
     toc_float:
       collapsed: no
       smooth_scroll: no
-  pdf_document:
-    toc: yes
 ---
 
 ```{r global_options_&_setup, include=FALSE}
