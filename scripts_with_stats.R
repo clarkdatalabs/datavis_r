@@ -24,17 +24,6 @@ head(census) #see the headers plus the first six rows
 summary(census) #see some summary statistics
 fix(census) #open an excel-esque data editor
 
-#sample statistics
-############
-
-#t-test
-t.test(census$inc_male_15_w,census$inc_female_15_w)
-#paired t-test
-t.test(census$inc_male_15_w,census$inc_female_15_w,paired=TRUE)
-
-#correlation
-cor.test(census$bach_degree,census$unemploy)
-
 #histogram
 ############
 
@@ -68,6 +57,17 @@ points(census$rent,census$hh_income,pch=20,col="blue")
 
 #it is easy to add a new column:
 #census$newcol <- [formula]
+
+#sample statistics
+############
+
+#t-test
+t.test(census$inc_male_15_w,census$inc_female_15_w)
+#paired t-test
+t.test(census$inc_male_15_w,census$inc_female_15_w,paired=TRUE)
+
+#correlation
+cor.test(census$bach_degree,census$unemploy)
 
 #subsetting data
 ################
