@@ -1,7 +1,5 @@
-#Data Visualization
 #Justin Joque
-#Clark Data Labs
-#Fall 2016 workshop
+#Fall 2017 workshop
 
 
 
