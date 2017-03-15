@@ -1,10 +1,8 @@
 ---
 title: 'Data Visualization and R: Part 1'
 author: "Justin Joque (Clark Data Labs) and Maria-Carolina Simao"
-date: "12/12/2016"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
-  pdf_document:
-    toc: yes
   html_document:
     number_sections: no
     theme: cosmo
@@ -13,6 +11,8 @@ output:
     toc_float:
       collapsed: no
       smooth_scroll: no
+  pdf_document:
+    toc: yes
 ---
 
 ```{r global_options_&_setup, include=FALSE}
@@ -58,7 +58,9 @@ Throughout the tutorial, the R code is preceded by this icon ![](images/R_icon.j
 
 ## Quick R Tips
 
-To operate in R, you can run single commands or scripts (essentially text files with lists of commands), which are processed in the console. Each command or function can have parameters defined by the user. A few quick tips:   
+To operate in R, you can run single commands or scripts (essentially text files with lists of commands), which are processed in the console. The useful shortcut for running a command line is pressing Ctrl + Enter on Windows, or Command + Enter on Mac. (Your cursor must be somewhere on the desired line for it run.)
+
+Each command or function can have parameters defined by the user. A few quick tips:   
 
 * Any text preceeded by a `#` is a comment to explain the code, and is not run by R.  
 
@@ -68,7 +70,7 @@ To operate in R, you can run single commands or scripts (essentially text files 
 ```{r eval=TRUE, strip.white=FALSE}
 x <- 2 #assigns the value '2' to the variable x
 y = 3 #assigns the value '3' to the variable y
-sumofxy <- sum(x,y) #uses the sum() function to add variables x and y, saving the results into variably sumofxy
+sumofxy <- sum(x,y) #uses the sum() function to add variables x and y, saving the results into variable sumofxy
 sumofxy #displays value of sumofxy
 ```
 
@@ -146,19 +148,21 @@ census$region
 
 Before visualizing data, it's important to:  
 
-1. define your research question,  
-2. understand the underlying data you're working with, and  
-3. prepare the appropriate data as needed for visualization. 
+a. define your research question,  
+b. understand the underlying data you're working with, and  
+c. prepare the appropriate data as needed for visualization. 
 
-(1.) The first step of defining your research question may seems trivial, but it guides many of your visualization decisions. Knowing your research question allows you to identify the variables relevant to your visualization or analysis, as well as how you think they'll relate to each other.
+(a.) The first step of defining your research question may seem trivial, but it guides many of your visualization decisions. Knowing your research question allows you to identify the variables relevant to your visualization or analysis, as well as how you think they'll relate to each other.
 
-(2.) Once you've defined your research question, you can identify the number of variables you're interested in comparing---i.e. the **dimensionality** of your analysis---as well as the **type of data** contained in each variable of interest---e.g. is it continuous or discrete? 
+(b.) Once you've defined your research question, you can identify the number of variables you're interested in comparing---i.e. the **dimensionality** of your analysis---as well as the **type of data** contained in each variable of interest---e.g. is it continuous or discrete? 
 
-(3.) Sometimes a final step is required, where the data needs to be organized or re-structured before the final step of visualization.
+(c.) Sometimes a final step is required, where the data needs to be organized or re-structured before the final step of visualization.
 
 ## 3.i. Understanding Visualization Parameters
 
 ### Dimensionality
+
+**NOTE**: The graphs in this section are provided to visualize the dimensionality of the following data, but the code to produce such 2-dimensional scatterplots will be provided later in the tutorial, in section 4.ii.
 
 The **dimensionality**, or number of variables you're interested in comparing, is one of the first parameters to determine the type(s) of visualizations available to you.  
 
@@ -235,28 +239,29 @@ Knowing **what kind of data** you're visualizing is also important, because it d
 |**Discrete  (unordered)**|can take on finite or countable values that have no order associated with them; can think of as bins, no in-between values and no inherent order to the types of bins| The names of your friends' dogs. |
 *Definitions taken from* A Primer of Ecological Statistics 2^nd^ Ed. *by Nicholas J. Gotelli and Aaron M. Ellison*
 
-To quickly test the concepts introduced above (dimensionality and data type), use the data collected on your friends' pets' to:  
+To quickly test the concepts introduced above (dimensionality and data type), use the data collected on your friends' pets' to:    
 
- * **a.** define the main variables used in the last visualization created above
- * **b.** categorize the type of data each variable contains
+**a.** define the main variables used in the last visualization created above  
+**b.** categorize the type of data each variable contains  
 
-*Answers*:  
-**a.** *possible answer: variable 1 - friends, variable 2 - type of pet, variable 3 - number of pets.*  
-**b.** *variable 1 - discrete (unordered), variable 2 - discrete (unordered) , variable 3 - discrete (ordered)*
+*(View answers at the end of the following section.)*
 
 ### Putting it together...
 
-Once you know the **dimensionality** and **type of data** needed for your research question, you're ready to decide what you'd like to visualize and you'd like to do it.
+Once you know the **dimensionality** and **type of data** needed for your research question, you're ready to decide what you'd like to visualize and how you'd like to do it.
 
 For example, if you had 2-dimensional data (2 variables) where both variables were continous, you could produce a scatterplot. Or, if you had 3-dimensional data (3 variables) where all 3 variables were continuous, you could product a bubble chart.
 
 See below for an illustation of a scatterplot or bubble plot, and notice the numerous visualization possibilites depending on dimensionality and type of data:
 
 ![Made by A. Abela](images/pick-your-visualization.png)
+*Answers to quick test in previous section*:  
+**a.** *possible answer: variable 1 - friends, variable 2 - type of pet, variable 3 - number of pets.*  
+**b.** *variable 1 - discrete (unordered), variable 2 - discrete (unordered) , variable 3 - discrete (ordered)*
 
 ## 3.ii. Organizing and Re-Structuring Data in R
 
-Often times the data you receive is not formatted for visualization, or needs to be transformed. In such cases, R has a variety of function that can help.
+Oftentimes the data you receive is not formatted for visualization, or needs to be transformed. In such cases, R has a variety of function that can help.
 
 ### Mapping to a Different Scale
 
@@ -301,8 +306,6 @@ Another very useful data re-structuring technique involves extracting a subset o
 ![](images/R_icon.jpg) *Subset data* 
 ```{r}
 
-# census[1:5] returns the first 5 columns, as does census[,1:5], but census[1:5,] give the first five rows
-
 upper <- census[census$region=="upper",] #note the comma after the conditional!
 View(upper) #compare how newly created "upper" differs from "census" data
 
@@ -313,6 +316,7 @@ lower <- census[census$region=="south",]
 View(lower)
 ```
 
+In R, census[1:5] returns the first 5 columns, as does census[,1:5], but census[1:5,] gives the first five rows.
 
 ### Scaling and Normalizing
 
@@ -436,7 +440,7 @@ Example 1 Syntax: (*continuous* variable 1 ~ *discrete* variable 2)
 
 ![](images/R_icon.jpg) *Boxplots*
 ```{r}
-boxplot(hh_income ~ region,data=census, col="lightgreen", main="Median Income by Region\nby County ACS 2006-2010") #this will give us household income by region
+boxplot(hh_income ~ region,data=census, col=palette(rainbow(3)), main="Median Income by Region\nby County ACS 2006-2010") #this will give us household income by region
 ```
 ![](images/box_2var_hh-income.png)
 
@@ -468,7 +472,7 @@ You can transform or even calculate a new variable within the plot function itse
 #we can plot the log of a variable by simply adding it to the plot command
 plot(census$hh_income, log(census$population,2))
 ```
-![](images/scatter_logpop_v_hh_inc.tiff)
+![](images/scatter_logpop_v_hh_inc.png)
 
 ![](images/R_icon.jpg) *Scatterplot and Transformation*
 ```{r}
@@ -478,13 +482,11 @@ plot(census$hh_income, census$population/census$area)
 
 ![](images/scatter_popdensity_v_hh_inc.png)
 
-We can also build up a plot by using the points function, for example:
+We can also build up a plot by using the points function. In the example below, we're using the upper, central and lower subsets of data you created in section 3.ii.:
 
 ![](images/R_icon.jpg) *Scatterplot - building by layers*
 ```{r}
-#using the upper, central and lower subsets of data you created in section 3.ii.
 
-#we can also build up a plot by using the points function i.e.
 plot(c(0,max(census$rent)),c(0,max(census$hh_income)),
      type="n", xlab="Rent", ylab="Median Household Income") #create a blank canvas ('type' parameter) and add axis labels ('xlab' and 'ylab' parameters)
 points(upper$rent,upper$hh_income,pch=20,col="blue")
@@ -496,5 +498,3 @@ legend("topleft", c("upper","central","lower"), pch=20, col=c("blue","red","gree
 ![](images/3var_hh_inc_v_rent_Wregion.png)  
 
 See how many variables we included there? (3!)
-
-<!--Link to Part 2 here-->
