@@ -96,168 +96,170 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <h1>
-<a id="datavis-with-r" class="anchor" href="#datavis-with-r" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Welcome to DataViz with R</h1>
 
-<p>A workshop for producing data visualizations with R.</p>
+      <!--Code copied from knitted markdown file:-->  
 
-<p>Download the data for this workshop using the tar.gz or .zip folders above. Workshop instructions are available as a .pdf within either download.</p>
+      <!--Content for Table of Contents (TOC)-->
+          <style type="text/css">
+          .main-container {
+            max-width: 940px;
+            margin-left: auto;
+            margin-right: auto;
+          }
+          code {
+            color: inherit;
+            background-color: rgba(0, 0, 0, 0.04);
+          }
+          img {
+            max-width:100%;
+            height: auto;
+          }
+          .tabbed-pane {
+            padding-top: 12px;
+          }
+          button.code-folding-btn:focus {
+            outline: none;
+          }
+          </style>
 
-<p>A few additional R resources: </p>
-  <ul>
-    <li> Colors: <a href="http://research.stowers-institute.org/efg/R/Color/Chart/">http://research.stowers-institute.org/efg/R/Color/Chart/</a></p></li>
-    <li> Symbols (also information on bar charts and other types of charts): <a  href="http://www.harding.edu/fmccown/r/"> http://www.harding.edu/fmccown/r/</a></li>
-  </ul>
-</section>
+          <div class="container-fluid main-container">
+
+          <!-- tabsets -->
+          <script>
+          $(document).ready(function () {
+            window.buildTabsets("TOC");
+          });
+          </script>
+
+          <!-- code folding -->
+
+          <script>
+          $(document).ready(function ()  {
+
+              // move toc-ignore selectors from section div to header
+              $('div.section.toc-ignore')
+                  .removeClass('toc-ignore')
+                  .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+              // establish options
+              var options = {
+                selectors: "h1,h2",
+                theme: "bootstrap3",
+                context: '.toc-content',
+                hashGenerator: function (text) {
+                  return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+                },
+                ignoreSelector: ".toc-ignore",
+                scrollTo: 0
+              };
+              options.showAndHide = false;
+              options.smoothScroll = false;
+
+              // tocify
+              var toc = $("#TOC").tocify(options).data("toc-tocify");
+          });
+          </script>
+
+          <style type="text/css">
+
+          #TOC {
+            margin: 25px 0px 20px 0px;
+          }
+          @media (max-width: 768px) {
+          #TOC {
+            position: relative;
+            width: 100%;
+          }
+          }
+
+
+          .toc-content {
+            padding-left: 0px;
+            padding-right: 0px;
+          }
+
+          div.main-container {
+            max-width: 1200px;
+          }
+
+          div.tocify {
+            width: 20%;
+            max-width: 260px;
+            max-height: 85%;
+          }
+
+          @media (min-width: 768px) and (max-width: 991px) {
+            div.tocify {
+              width: 25%;
+            }
+          }
+
+          @media (max-width: 767px) {
+            div.tocify {
+              width: 100%;
+              max-width: none;
+            }
+          }
+
+          .tocify ul, .tocify li {
+            line-height: 20px;
+          }
+
+          .tocify-subheader .tocify-item {
+            font-size: 0.90em;
+            padding-left: 25px;
+            text-indent: 0;
+          }
+
+          .tocify .list-group-item {
+            border-radius: 0px;
+          }
+
+          .tocify-subheader {
+            display: inline;
+          }
+          .tocify-subheader .tocify-item {
+            font-size: 0.95em;
+          }
+
+          </style>
+
+          <!-- setup 3col/9col grid for toc_float and main content  -->
+          <div class="row-fluid">
+          <div class="col-xs-12 col-sm-4 col-md-3">
+          <div id="TOC" class="tocify">
+          </div>
+          </div>
+
+
+          <div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+      <!--End of Table of Contents-->
+
+          <div class="fluid-row" id="header">
+
+          <h1 class="title toc-ignore">Data Visualization and R: Part 1</h1>
+          <h4 class="author"><em>Justin Joque (Clark Data Labs) and Maria-Carolina Simao</em></h4>
+          <h4 class="date"><em>22 March, 2017</em></h4>
+
+          </div>
+
+          <h1><a id="datavis-with-r" class="anchor" href="#datavis-with-r" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Welcome to DataViz with R</h1>
+
+          <p>A workshop for producing data visualizations with R.</p>
+
+          <p>Download the data for this workshop using the tar.gz or .zip folders above. Workshop instructions are available as a .pdf within either download.</p>
+
+          <p>A few additional R resources: </p>
+          <ul>
+            <li> Colors: <a href="http://research.stowers-institute.org/efg/R/Color/Chart/">http://research.stowers-institute.org/efg/R/Color/Chart/</a></p></li>
+            <li> Symbols (also information on bar charts and other types of charts): <a  href="http://www.harding.edu/fmccown/r/"> http://www.harding.edu/fmccown/r/</a></li>
+          </ul>
+        </section>
 
       <!--START of content in body tag from datavis_r_script_part1.html copied into index.html-->
 
-      <style type="text/css">
-      .main-container {
-        max-width: 940px;
-        margin-left: auto;
-        margin-right: auto;
-      }
-      code {
-        color: inherit;
-        background-color: rgba(0, 0, 0, 0.04);
-      }
-      img {
-        max-width:100%;
-        height: auto;
-      }
-      .tabbed-pane {
-        padding-top: 12px;
-      }
-      button.code-folding-btn:focus {
-        outline: none;
-      }
-      </style>
 
-
-
-      <div class="container-fluid main-container">
-
-      <!-- tabsets -->
-      <script>
-      $(document).ready(function () {
-        window.buildTabsets("TOC");
-      });
-      </script>
-
-      <!-- code folding -->
-
-
-
-
-      <script>
-      $(document).ready(function ()  {
-
-          // move toc-ignore selectors from section div to header
-          $('div.section.toc-ignore')
-              .removeClass('toc-ignore')
-              .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-          // establish options
-          var options = {
-            selectors: "h1,h2",
-            theme: "bootstrap3",
-            context: '.toc-content',
-            hashGenerator: function (text) {
-              return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
-            },
-            ignoreSelector: ".toc-ignore",
-            scrollTo: 0
-          };
-          options.showAndHide = false;
-          options.smoothScroll = false;
-
-          // tocify
-          var toc = $("#TOC").tocify(options).data("toc-tocify");
-      });
-      </script>
-
-      <style type="text/css">
-
-      #TOC {
-        margin: 25px 0px 20px 0px;
-      }
-      @media (max-width: 768px) {
-      #TOC {
-        position: relative;
-        width: 100%;
-      }
-      }
-
-
-      .toc-content {
-        padding-left: 0px;
-        padding-right: 0px;
-      }
-
-      div.main-container {
-        max-width: 1200px;
-      }
-
-      div.tocify {
-        width: 20%;
-        max-width: 260px;
-        max-height: 85%;
-      }
-
-      @media (min-width: 768px) and (max-width: 991px) {
-        div.tocify {
-          width: 25%;
-        }
-      }
-
-      @media (max-width: 767px) {
-        div.tocify {
-          width: 100%;
-          max-width: none;
-        }
-      }
-
-      .tocify ul, .tocify li {
-        line-height: 20px;
-      }
-
-      .tocify-subheader .tocify-item {
-        font-size: 0.90em;
-        padding-left: 25px;
-        text-indent: 0;
-      }
-
-      .tocify .list-group-item {
-        border-radius: 0px;
-      }
-
-      .tocify-subheader {
-        display: inline;
-      }
-      .tocify-subheader .tocify-item {
-        font-size: 0.95em;
-      }
-
-      </style>
-
-      <!-- setup 3col/9col grid for toc_float and main content  -->
-      <div class="row-fluid">
-      <div class="col-xs-12 col-sm-4 col-md-3">
-      <div id="TOC" class="tocify">
-      </div>
-      </div>
-
-
-      <div class="toc-content col-xs-12 col-sm-8 col-md-9">
-
-      <div class="fluid-row" id="header">
-
-      <h1 class="title toc-ignore">Data Visualization and R: Part 1</h1>
-      <h4 class="author"><em>Justin Joque (Clark Data Labs) and Maria-Carolina Simao</em></h4>
-      <h4 class="date"><em>22 March, 2017</em></h4>
-
-      </div>
 
 
       <div id="tutorial-introduction-and-outline" class="section level1">
