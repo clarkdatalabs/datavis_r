@@ -27,6 +27,7 @@ time, mark, audio, video {
   border: 0;
   font: inherit;
   vertical-align: baseline;
+  background-color: rgba(242, 242, 242, 0.04);
 }
 
 /* HTML5 display-role reset for older browsers */
@@ -51,7 +52,7 @@ Theme Styles
 body {
   box-sizing: border-box;
   color:#373737;
-  background: #212121;
+  background: rgba(242, 242, 242, 0.04);
   font-size: 16px;
   font-family: 'Myriad Pro', Calibri, Helvetica, Arial, sans-serif;
   line-height: 1.5;
