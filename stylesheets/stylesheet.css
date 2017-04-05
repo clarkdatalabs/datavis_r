@@ -27,7 +27,6 @@ time, mark, audio, video {
   border: 0;
   font: inherit;
   vertical-align: baseline;
-  background-color: rgba(242, 242, 242, 0.04);
 }
 
 /* HTML5 display-role reset for older browsers */
@@ -263,6 +262,7 @@ Full-Width Styles
 
 .outer {
   width: 100%;
+  background-color: rgb(44, 44, 44);
 }
 
 .inner {
