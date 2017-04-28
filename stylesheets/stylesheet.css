@@ -44,6 +44,8 @@ table {
   border-spacing: 0;
 }
 
+
+
 /*******************************************************************************
 Theme Styles
 *******************************************************************************/
@@ -369,7 +371,7 @@ Full-Width Styles
   background: #212121;
 }
 
-#tocify-extend-page {
+.tocify-extend-page {
   height:100px   !important;
 }
 
