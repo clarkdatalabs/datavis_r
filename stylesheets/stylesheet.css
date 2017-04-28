@@ -369,6 +369,9 @@ Full-Width Styles
   background: #212121;
 }
 
+#tocify-extend-page {
+  height:100px   !important;
+}
 
 
 /*******************************************************************************
